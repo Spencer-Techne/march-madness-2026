@@ -237,6 +237,25 @@ function renderPills() {
 }
 
 // ============================================================
+// BRACKET SELECT + NAV HELPER
+// ============================================================
+function populateBktSelect() {
+  if (!appData) return;
+  const sel = document.getElementById('bkt-select');
+  if (!sel) return;
+  sel.innerHTML = '<option value="">— Choose a participant —</option>' +
+    appData.participants.map(p =>
+      '<option value="' + p.id + '">' + esc(p.name) + (p.type==='ai'?' (AI)':'') + '</option>'
+    ).join('');
+}
+
+function viewBkt(id) {
+  showView('bracket');
+  const sel = document.getElementById('bkt-select');
+  if (sel) { sel.value = id; renderBracket(); }
+}
+
+// ============================================================
 // LEADERBOARD
 // ============================================================
 function renderLeaderboard() {
@@ -282,7 +301,15 @@ function renderLeaderboard() {
         </div>
         <div class="lb-score">
           <div class="lb-pts" style="${has && p.color ? 'color:'+p.color : ''}">${pts}</div>
-          <div class="lb-// ============================================================
+          <div class="lb-pts-lbl">pts</div>
+        </div>
+      </div>`;
+  }).join('');
+
+  document.getElementById('lb-list').innerHTML = html || '<div class="empty-state">No participants yet</div>';
+}
+
+// ============================================================
 // BRACKET VIEW — horizontal layout with SVG connectors
 // ============================================================
 const SLOT_H = 58;
@@ -432,7 +459,23 @@ function renderBracket() {
   el.innerHTML = statsHtml + regHtml + ffHtml + champHtml;
 }
 
-class="name-hint">This is how you'll appear on the leaderboard.</div>`;
+// ============================================================
+// WIZARD
+// ============================================================
+function renderWizardStep() {
+  const wizard = document.getElementById('wizard');
+  const step = WSTEPS[wiz.step];
+  const pct  = (wiz.step / (WSTEPS.length - 1)) * 100;
+  const prog = '<div class="w-prog"><div class="w-prog-bar" style="width:' + pct + '%"></div></div>';
+  let body = '';
+
+  if (step.type === 'name') {
+    body = '<div class="w-title">' + step.title + '</div>' +
+      '<div class="w-sub">Enter your name to start your bracket</div>' +
+      '<input class="name-inp" id="w-name" type="text" placeholder="Your name..." value="' + esc(wiz.name) + '"' +
+      ' oninput="wiz.name=this.value;document.getElementById(&#39;w-next&#39;).disabled=!this.value.trim()"' +
+      ' onkeydown="if(event.key===&#39;Enter&#39;&amp;&amp;this.value.trim())wizNext()" />' +
+      '<div class="name-hint">This is how you&#39;ll appear on the leaderboard.</div>';
   } else if (step.type === 'games') {
     const r = appData?.results || {};
     const gamesHtml = step.games.map(gid => {
