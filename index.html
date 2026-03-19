@@ -76,7 +76,8 @@ nav button:hover { color: var(--text); background: var(--bg3); }
 nav button.active { color: var(--orange); background: rgba(212,146,42,0.1); }
 
 /* MAIN */
-main { max-width: 1080px; margin: 0 auto; padding: 28px 20px; }
+main { max-width: 1280px; margin: 0 auto; padding: 28px 20px; display: flex; gap: 24px; }
+.main-content { flex: 1; min-width: 0; max-width: 1080px; }
 .view { display: none; }
 .view.active { display: block; }
 
@@ -368,6 +369,42 @@ select:focus { border-color: var(--orange); }
 .instr-box h3 { font-family: var(--fd); font-weight: 800; font-size: 16px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--cyan); margin-bottom: 10px; }
 .instr-box ol { font-family: var(--fm); font-size: 11px; color: var(--muted); padding-left: 16px; line-height: 1.8; }
 .instr-box code { background: var(--bg3); border: 1px solid var(--border); border-radius: 3px; padding: 1px 5px; color: var(--text); }
+
+/* ====== TODAY'S GAMES SIDEBAR ====== */
+.sidebar { width: 300px; flex-shrink: 0; position: sticky; top: 20px; align-self: flex-start; max-height: calc(100vh - 40px); overflow-y: auto; }
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.08); border-radius: 4px; }
+.sidebar-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+.sidebar-head { padding: 14px 16px 10px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+.sidebar-head-icon { font-size: 16px; }
+.sidebar-head-title { font-family: var(--fd); font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.08em; color: var(--gold); }
+.sidebar-date { font-family: var(--fm); font-size: 9px; color: var(--muted); letter-spacing: 0.04em; padding: 0 16px; margin-top: 8px; text-transform: uppercase; }
+.sg-list { padding: 6px 0; }
+.sg-item { display: flex; align-items: center; gap: 10px; padding: 8px 16px; border-bottom: 1px solid rgba(255,255,255,0.03); transition: background 0.15s; cursor: default; }
+.sg-item:last-child { border-bottom: none; }
+.sg-item:hover { background: rgba(255,255,255,0.02); }
+.sg-teams { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.sg-team { display: flex; align-items: center; gap: 7px; font-family: var(--fb); font-size: 12px; color: var(--text); line-height: 1; }
+.sg-team.winner { color: var(--green); font-weight: 600; }
+.sg-team.loser { color: var(--muted); opacity: 0.5; text-decoration: line-through; }
+.sg-logo { width: 20px; height: 20px; border-radius: 3px; background: var(--bg3); object-fit: contain; flex-shrink: 0; }
+.sg-seed { font-family: var(--fm); font-size: 9px; color: var(--muted); min-width: 14px; text-align: right; }
+.sg-meta { display: flex; flex-direction: column; align-items: flex-end; gap: 2px; flex-shrink: 0; min-width: 52px; }
+.sg-time { font-family: var(--fm); font-size: 10px; color: var(--text); font-weight: 500; }
+.sg-tv { font-family: var(--fm); font-size: 8px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+.sg-final { font-family: var(--fm); font-size: 9px; color: var(--green); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; }
+.sg-live { font-family: var(--fm); font-size: 9px; color: var(--red); font-weight: 600; text-transform: uppercase; letter-spacing: 0.06em; animation: livePulse 1.5s ease-in-out infinite; }
+@keyframes livePulse { 0%,100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+@media (max-width: 900px) {
+  main { flex-direction: column; }
+  .sidebar { width: 100%; position: static; max-height: none; order: -1; }
+  .sg-list { display: grid; grid-template-columns: 1fr 1fr; }
+  .sg-item { border-bottom: none; border-right: 1px solid rgba(255,255,255,0.03); }
+}
+@media (max-width: 540px) {
+  .sg-list { grid-template-columns: 1fr; }
+}
 </style>
 </head>
 <body>
@@ -385,6 +422,22 @@ select:focus { border-color: var(--orange); }
 </header>
 
 <main>
+
+  <!-- Sidebar: Today's Games -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-card">
+      <div class="sidebar-head">
+        <span class="sidebar-head-icon">🏀</span>
+        <span class="sidebar-head-title">Today's Games</span>
+      </div>
+      <div class="sidebar-date" id="sidebar-date"></div>
+      <div class="sg-list" id="sg-list">
+        <div style="padding:16px;font-family:var(--fm);font-size:11px;color:var(--muted)">Loading schedule...</div>
+      </div>
+    </div>
+  </aside>
+
+  <div class="main-content">
 
   <!-- ============ LEADERBOARD ============ -->
   <div class="view active" id="view-leaderboard">
@@ -519,6 +572,8 @@ select:focus { border-color: var(--orange); }
 
     </div>
   </div>
+
+  </div> <!-- /.main-content -->
 
 </main>
 
