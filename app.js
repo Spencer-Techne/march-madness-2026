@@ -142,6 +142,7 @@ function onLoaded() {
   renderPills();
   renderLeaderboard();
   renderWizardStep();
+  renderSidebar();
 }
 
 // ============================================================
@@ -857,6 +858,7 @@ async function pushResults() {
     renderPills();
     renderAdminRounds();
     renderAdminParticipants();
+    renderSidebar();
     setTimeout(() => { statusEl.textContent=''; statusEl.className='push-status'; }, 4000);
 
   } catch(err) {
@@ -865,6 +867,101 @@ async function pushResults() {
     btn.disabled = false;
     console.error(err);
   }
+}
+
+// ============================================================
+// SIDEBAR — TODAY'S GAMES
+// ============================================================
+const LOGO_MAP = {
+  'Duke':'150','Siena':'399','Ohio St.':'194','TCU':'2628','St. John\'s':'2599',
+  'N. Iowa':'2460','Kansas':'2305','Cal Baptist':'2856','Louisville':'97',
+  'South Florida':'58','Michigan St.':'127','N. Dakota St.':'2449','UCLA':'26',
+  'UCF':'2116','UConn':'41','Furman':'231','Arizona':'12','LIU':'288',
+  'Villanova':'2918','Utah St.':'328','Wisconsin':'275','High Point':'2314',
+  'Arkansas':'8','Hawaii':'62','BYU':'252','Texas':'251','Gonzaga':'2250',
+  'Kennesaw St.':'2320','Miami (FL)':'2390','Missouri':'142','Purdue':'2509',
+  'Queens':'2514','Michigan':'130','Howard':'47','Georgia':'61','Saint Louis':'139',
+  'Texas Tech':'2641','Akron':'2006','Alabama':'333','Hofstra':'2275',
+  'Tennessee':'2633','Miami (OH)':'193','SMU':'2567','Virginia':'258',
+  'Wright St.':'2750','Kentucky':'96','Santa Clara':'2541','Iowa St.':'66',
+  'Tennessee St.':'2634','Florida':'57','Prairie View':'2504','Lehigh':'2329',
+  'Clemson':'228','Iowa':'2294','Vanderbilt':'238','McNeese':'2377',
+  'Nebraska':'158','Troy':'2653','N. Carolina':'153','VCU':'2670',
+  'Illinois':'356','Penn':'219','Saint Mary\'s':'2535','Texas A&M':'245',
+  'Houston':'248','Idaho':'70','NC State':'152','UMBC':'2378'
+};
+
+function teamLogo(name) {
+  const id = LOGO_MAP[name];
+  if (!id) return '';
+  return 'https://a.espncdn.com/i/teamlogos/ncaa/500/' + id + '.png';
+}
+
+function renderSidebar() {
+  if (!appData?.schedule) {
+    document.getElementById('sidebar').style.display = 'none';
+    return;
+  }
+
+  // Determine which day to show: today (ET), or closest upcoming
+  const now = new Date();
+  // Approximate ET offset (UTC-5 during EDT, UTC-4 during EST — March is EDT)
+  const etOffset = -4;
+  const utcMs = now.getTime() + (now.getTimezoneOffset() * 60000);
+  const etNow = new Date(utcMs + (etOffset * 3600000));
+  const todayStr = etNow.toISOString().slice(0, 10);
+
+  const dates = Object.keys(appData.schedule).sort();
+  // Show today if available, otherwise show next upcoming, otherwise show most recent
+  let dateKey = dates.find(d => d === todayStr)
+    || dates.find(d => d > todayStr)
+    || dates[dates.length - 1];
+
+  if (!dateKey) {
+    document.getElementById('sidebar').style.display = 'none';
+    return;
+  }
+
+  const day = appData.schedule[dateKey];
+  const results = appData.results || {};
+
+  document.getElementById('sidebar-date').textContent = day.label;
+
+  const html = day.games.map(sg => {
+    const g = GAMES[sg.id];
+    if (!g) return '';
+    const [t1, t2] = getTeams(sg.id, null, results);
+    const s1 = g.tSeed, s2 = g.bSeed;
+    const winner = results[sg.id];
+
+    const logo1 = teamLogo(t1);
+    const logo2 = teamLogo(t2);
+
+    const cls1 = winner ? (winner === t1 ? 'winner' : 'loser') : '';
+    const cls2 = winner ? (winner === t2 ? 'winner' : 'loser') : '';
+
+    const metaHtml = winner
+      ? '<span class="sg-final">Final</span>'
+      : '<span class="sg-time">' + sg.time + '</span><span class="sg-tv">' + sg.tv + '</span>';
+
+    return '<div class="sg-item">' +
+      '<div class="sg-teams">' +
+        '<div class="sg-team ' + cls1 + '">' +
+          (logo1 ? '<img class="sg-logo" src="' + logo1 + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">' : '') +
+          (s1 ? '<span class="sg-seed">' + s1 + '</span>' : '') +
+          '<span>' + esc(t1) + '</span>' +
+        '</div>' +
+        '<div class="sg-team ' + cls2 + '">' +
+          (logo2 ? '<img class="sg-logo" src="' + logo2 + '" alt="" loading="lazy" onerror="this.style.display=\'none\'">' : '') +
+          (s2 ? '<span class="sg-seed">' + s2 + '</span>' : '') +
+          '<span>' + esc(t2) + '</span>' +
+        '</div>' +
+      '</div>' +
+      '<div class="sg-meta">' + metaHtml + '</div>' +
+    '</div>';
+  }).join('');
+
+  document.getElementById('sg-list').innerHTML = html || '<div style="padding:16px;font-family:var(--fm);font-size:11px;color:var(--muted)">No games scheduled</div>';
 }
 
 // ============================================================
