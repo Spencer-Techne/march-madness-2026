@@ -783,6 +783,179 @@
   ],
   "results": {
     "FF1": "Texas",
-    "FF2": "Howard"
+    "FF2": "Howard",
+    "FF3": "Miami (OH)"
+  },
+  "schedule": {
+    "2026-03-19": {
+      "label": "Thursday, March 19 — Round of 64",
+      "games": [
+        {
+          "id": "E2",
+          "time": "12:15 PM",
+          "tv": "CBS"
+        },
+        {
+          "id": "S4",
+          "time": "12:40 PM",
+          "tv": "truTV"
+        },
+        {
+          "id": "E5",
+          "time": "1:30 PM",
+          "tv": "TNT"
+        },
+        {
+          "id": "W3",
+          "time": "1:50 PM",
+          "tv": "TBS"
+        },
+        {
+          "id": "E1",
+          "time": "2:50 PM",
+          "tv": "CBS"
+        },
+        {
+          "id": "S3",
+          "time": "3:15 PM",
+          "tv": "truTV"
+        },
+        {
+          "id": "E6",
+          "time": "4:05 PM",
+          "tv": "TNT"
+        },
+        {
+          "id": "W4",
+          "time": "4:25 PM",
+          "tv": "TBS"
+        },
+        {
+          "id": "S5",
+          "time": "6:50 PM",
+          "tv": "TNT"
+        },
+        {
+          "id": "M1",
+          "time": "7:10 PM",
+          "tv": "CBS"
+        },
+        {
+          "id": "E4",
+          "time": "7:15 PM",
+          "tv": "truTV"
+        },
+        {
+          "id": "W5",
+          "time": "7:25 PM",
+          "tv": "TBS"
+        },
+        {
+          "id": "E8",
+          "time": "9:20 PM",
+          "tv": "truTV"
+        },
+        {
+          "id": "W7",
+          "time": "9:40 PM",
+          "tv": "CBS"
+        },
+        {
+          "id": "S1",
+          "time": "9:50 PM",
+          "tv": "TNT"
+        },
+        {
+          "id": "W1",
+          "time": "9:55 PM",
+          "tv": "TBS"
+        }
+      ]
+    },
+    "2026-03-20": {
+      "label": "Friday, March 20 — Round of 64",
+      "games": [
+        {
+          "id": "E3",
+          "time": "12:15 PM",
+          "tv": "CBS"
+        },
+        {
+          "id": "M4",
+          "time": "12:40 PM",
+          "tv": "truTV"
+        },
+        {
+          "id": "M5",
+          "time": "1:30 PM",
+          "tv": "TNT"
+        },
+        {
+          "id": "S6",
+          "time": "1:50 PM",
+          "tv": "TBS"
+        },
+        {
+          "id": "M3",
+          "time": "2:50 PM",
+          "tv": "CBS"
+        },
+        {
+          "id": "S2",
+          "time": "3:15 PM",
+          "tv": "truTV"
+        },
+        {
+          "id": "M6",
+          "time": "4:05 PM",
+          "tv": "TNT"
+        },
+        {
+          "id": "S7",
+          "time": "4:25 PM",
+          "tv": "TBS"
+        },
+        {
+          "id": "E7",
+          "time": "6:50 PM",
+          "tv": "TNT"
+        },
+        {
+          "id": "M2",
+          "time": "7:10 PM",
+          "tv": "CBS"
+        },
+        {
+          "id": "W2",
+          "time": "7:15 PM",
+          "tv": "truTV"
+        },
+        {
+          "id": "W6",
+          "time": "7:25 PM",
+          "tv": "TBS"
+        },
+        {
+          "id": "M7",
+          "time": "9:20 PM",
+          "tv": "truTV"
+        },
+        {
+          "id": "M8",
+          "time": "9:40 PM",
+          "tv": "CBS"
+        },
+        {
+          "id": "S8",
+          "time": "9:50 PM",
+          "tv": "TNT"
+        },
+        {
+          "id": "W8",
+          "time": "9:55 PM",
+          "tv": "TBS"
+        }
+      ]
+    }
   }
 }
