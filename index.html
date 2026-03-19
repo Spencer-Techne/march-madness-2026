@@ -166,32 +166,62 @@ select:focus { border-color: var(--orange); }
 .bstat-val { font-family: var(--fd); font-weight: 900; font-size: 28px; line-height: 1; }
 .bstat-lbl { font-family: var(--fm); font-size: 9px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 3px; }
 
-.bkt-regions { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 18px; }
-@media (max-width: 680px) { .bkt-regions { grid-template-columns: 1fr; } }
+/* HORIZONTAL BRACKET LAYOUT */
+.bkt-region-wrap { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; margin-bottom: 16px; }
+.bkt-region-head { background: var(--bg3); padding: 9px 16px; font-family: var(--fd); font-weight: 800; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+.bkt-scroll { overflow-x: auto; padding: 14px 16px 20px; -webkit-overflow-scrolling: touch; }
+.bkt-inner { display: flex; align-items: flex-start; width: fit-content; }
+.bkt-col { flex-shrink: 0; display: flex; flex-direction: column; }
+.bkt-col-hd { font-family: var(--fm); font-size: 8px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); height: 22px; display: flex; align-items: center; white-space: nowrap; gap: 4px; }
+.bkt-games { display: flex; flex-direction: column; }
+.bkt-game { display: flex; flex-direction: column; justify-content: center; gap: 4px; }
 
-.region-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.col-r1  { width: 162px; }
+.col-r2  { width: 150px; }
+.col-s16 { width: 142px; }
+.col-e8  { width: 134px; }
+.col-r1  .bkt-game { height: 58px; }
+.col-r2  .bkt-game { height: 116px; }
+.col-s16 .bkt-game { height: 232px; }
+.col-e8  .bkt-game { height: 464px; }
+
+.bkt-conn { flex-shrink: 0; width: 24px; padding-top: 22px; }
+.bkt-conn svg { display: block; }
+
+/* Team slots */
+.bkt-slot { display: flex; align-items: center; gap: 5px; padding: 3px 6px 3px 4px; border-radius: 5px; border: 1px solid transparent; min-height: 22px; overflow: hidden; }
+.bkt-seed { font-family: var(--fm); font-size: 8px; color: var(--muted); min-width: 14px; text-align: right; flex-shrink: 0; line-height: 1; }
+.bkt-name { font-family: var(--fd); font-weight: 700; font-size: 12.5px; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; line-height: 1.2; }
+.bkt-ico  { font-size: 9px; flex-shrink: 0; line-height: 1; }
+
+.slot-pick    { border-color: rgba(212,146,42,0.45); background: rgba(212,146,42,0.08); }
+.slot-pick    .bkt-name { color: var(--orange); }
+.slot-pick    .bkt-seed { color: rgba(212,146,42,0.5); }
+.slot-correct { border-color: rgba(34,197,94,0.5); background: rgba(34,197,94,0.09); }
+.slot-correct .bkt-name { color: var(--green); }
+.slot-correct .bkt-ico  { color: var(--green); }
+.slot-wrong   { border-color: rgba(239,68,68,0.3); background: rgba(239,68,68,0.06); }
+.slot-wrong   .bkt-name { color: var(--red); text-decoration: line-through; text-decoration-color: rgba(239,68,68,0.5); }
+.slot-wrong   .bkt-ico  { color: var(--red); }
+.slot-actual  { border-color: rgba(34,197,94,0.2); background: rgba(34,197,94,0.04); }
+.slot-actual  .bkt-name { color: #86efac; }
+.slot-dim     .bkt-name { color: var(--muted); }
+.slot-dim     .bkt-seed { color: rgba(74,82,104,0.5); }
+.slot-tbd     .bkt-name { color: rgba(74,82,104,0.4); font-style: italic; font-size: 11px; }
+
+/* Final Four */
+.bkt-ff-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-top: 16px; }
+@media (max-width: 540px) { .bkt-ff-wrap { grid-template-columns: 1fr; } }
+.bkt-ff-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
+.bkt-ff-inner { padding: 12px 14px; display: flex; flex-direction: column; gap: 5px; }
 .region-head { background: var(--bg3); padding: 9px 14px; font-family: var(--fd); font-weight: 800; font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--orange); border-bottom: 1px solid var(--border); }
-.round-block { border-bottom: 1px solid var(--border); }
-.round-block:last-child { border-bottom: none; }
-.round-lbl { font-family: var(--fm); font-size: 9px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); padding: 7px 14px 3px; }
 
-.game-line { display: flex; align-items: center; padding: 5px 14px; gap: 6px; flex-wrap: wrap; }
-.tc { font-family: var(--fd); font-weight: 600; font-size: 13px; padding: 3px 8px; border-radius: 4px; border: 1px solid transparent; white-space: nowrap; }
-.tc-pick   { border-color: var(--orange); background: rgba(212,146,42,0.1); color: var(--text); }
-.tc-correct{ border-color: var(--green); background: rgba(34,197,94,0.1); color: var(--green); }
-.tc-wrong  { border-color: var(--red); background: rgba(239,68,68,0.08); color: var(--red); text-decoration: line-through; }
-.tc-result { border-color: rgba(34,197,94,0.4); background: rgba(34,197,94,0.05); color: #86efac; }
-.tc-other  { border-color: transparent; background: rgba(255,255,255,0.03); color: var(--muted); }
-.tc-tbd    { border-color: transparent; background: transparent; color: var(--muted); font-style: italic; }
-.vs { font-family: var(--fm); font-size: 9px; color: var(--muted); }
-
-.ff-card { background: var(--bg2); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; }
 .champ-display {
   text-align: center; padding: 28px;
-  background: linear-gradient(135deg, rgba(245,197,24,0.06), rgba(212,146,42,0.04));
-  border: 1px solid rgba(245,197,24,0.18); border-radius: 10px; margin-top: 16px;
+  background: linear-gradient(135deg, rgba(212,146,42,0.06), rgba(212,146,42,0.02));
+  border: 1px solid rgba(212,146,42,0.2); border-radius: 10px; margin-top: 16px;
 }
-.champ-lbl { font-family: var(--fm); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+.champ-lbl  { font-family: var(--fm); font-size: 10px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
 .champ-team { font-family: var(--fd); font-weight: 900; font-size: 44px; text-transform: uppercase; letter-spacing: 0.02em; line-height: 1; }
 
 /* WIZARD */
@@ -776,30 +806,98 @@ function renderLeaderboard() {
         </div>
         <div class="lb-score">
           <div class="lb-pts" style="${has && p.color ? 'color:'+p.color : ''}">${pts}</div>
-          <div class="lb-pts-lbl">pts</div>
-        </div>
-      </div>`;
-  }).join('');
+          <div class="lb-// ============================================================
+// BRACKET VIEW — horizontal layout with SVG connectors
+// ============================================================
+const SLOT_H = 58;
 
-  document.getElementById('lb-list').innerHTML = html || '<div class="empty-state">No participants yet</div>';
+function makeBracketSVG(sourceGameH, numSourceGames) {
+  const W = 24, MX = 11;
+  const H = numSourceGames * sourceGameH;
+  const paths = [];
+  for (let i = 0; i < numSourceGames / 2; i++) {
+    const y1   = (2*i     * sourceGameH) + sourceGameH/2;
+    const y2   = ((2*i+1) * sourceGameH) + sourceGameH/2;
+    const ymid = (y1 + y2) / 2;
+    paths.push(`M0,${y1.toFixed(1)} H${MX} M0,${y2.toFixed(1)} H${MX} M${MX},${y1.toFixed(1)} V${y2.toFixed(1)} M${MX},${ymid.toFixed(1)} H${W}`);
+  }
+  return `<svg width="${W}" height="${H}" style="display:block" xmlns="http://www.w3.org/2000/svg">
+    <path d="${paths.join(' ')}" fill="none" stroke="rgba(255,255,255,0.09)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>`;
 }
 
-// ============================================================
-// BRACKET VIEW
-// ============================================================
-function populateBktSelect() {
-  if (!appData) return;
-  const sel = document.getElementById('bkt-select');
-  sel.innerHTML = '<option value="">Select a participant...</option>' +
-    appData.participants.map(p =>
-      `<option value="${p.id}">${esc(p.name)}${p.type==='ai' ? ' (AI)' : ''}</option>`
-    ).join('');
+function renderBktSlot(team, seed, pick, result) {
+  if (!team || team === 'TBD') {
+    return `<div class="bkt-slot slot-tbd"><span class="bkt-name">TBD</span></div>`;
+  }
+  const seedHtml = seed != null ? `<span class="bkt-seed">${seed}</span>` : `<span class="bkt-seed"></span>`;
+  const isPick = pick === team, isResult = result === team;
+  let cls = 'slot-dim', ico = '';
+  if      (isPick && isResult)       { cls = 'slot-correct'; ico = '✓'; }
+  else if (isPick && result)         { cls = 'slot-wrong';   ico = '✗'; }
+  else if (isPick)                   { cls = 'slot-pick';    ico = '●'; }
+  else if (isResult)                 { cls = 'slot-actual'; }
+  const icoHtml = ico ? `<span class="bkt-ico">${ico}</span>` : '';
+  return `<div class="bkt-slot ${cls}">${seedHtml}<span class="bkt-name">${esc(team)}</span>${icoHtml}</div>`;
 }
 
-function viewBkt(id) {
-  showView('bracket');
-  document.getElementById('bkt-select').value = id;
-  renderBracket();
+function renderBktGame(gid, picks, results) {
+  const g = GAMES[gid];
+  const [t1, t2] = getTeams(gid, picks, results);
+  const s1 = g.src ? null : g.tSeed;
+  const s2 = g.src ? null : g.bSeed;
+  return `<div class="bkt-game">
+    ${renderBktSlot(t1, s1, picks?.[gid], results?.[gid])}
+    ${renderBktSlot(t2, s2, picks?.[gid], results?.[gid])}
+  </div>`;
+}
+
+function renderRegion(region, meta, picks, results) {
+  const rounds = [
+    { key:'r1',  cls:'col-r1',  games: RG[region].r1,  label:'R64', pts:10 },
+    { key:'r2',  cls:'col-r2',  games: RG[region].r2,  label:'R32', pts:20 },
+    { key:'s16', cls:'col-s16', games: RG[region].s16, label:'S16', pts:40 },
+    { key:'e8',  cls:'col-e8',  games: RG[region].e8,  label:'E8',  pts:80 }
+  ];
+  let inner = '<div class="bkt-inner">';
+  rounds.forEach((rnd, idx) => {
+    const gamesHtml = rnd.games.map(gid => renderBktGame(gid, picks, results)).join('');
+    inner += `<div class="bkt-col"><div class="bkt-col-hd">${rnd.label} <span style="color:rgba(74,82,104,0.55)">${rnd.pts}pts</span></div><div class="bkt-games ${rnd.cls}">${gamesHtml}</div></div>`;
+    if (idx < rounds.length - 1) {
+      const srcH = SLOT_H * Math.pow(2, idx);
+      inner += `<div class="bkt-conn">${makeBracketSVG(srcH, rnd.games.length)}</div>`;
+    }
+  });
+  inner += '</div>';
+
+  const allRoundGames = rounds.flatMap(r => r.games);
+  let regionPts = 0;
+  allRoundGames.forEach(gid => {
+    if (results[gid] && picks?.[gid] === results[gid]) regionPts += RPTS[GAMES[gid].round];
+  });
+  const ptsBadge = regionPts > 0 ? `<span style="font-family:var(--fm);font-size:9px;color:var(--orange);font-weight:600">${regionPts} pts</span>` : '';
+
+  return `<div class="bkt-region-wrap">
+    <div class="bkt-region-head"><span>${meta.emoji} ${meta.label}</span>${ptsBadge}</div>
+    <div class="bkt-scroll">${inner}</div>
+  </div>`;
+}
+
+function gameLineHtml(gid, picks, results) {
+  // kept for admin panel compatibility
+  const [t1, t2] = getTeams(gid, picks, results);
+  const pick = picks?.[gid], result = results?.[gid];
+  function chip(team) {
+    if (!team || team==='TBD') return `<span style="color:var(--muted);font-style:italic;font-size:12px">TBD</span>`;
+    const isPick = pick===team, isResult = result===team;
+    let cls;
+    if (isPick && result) cls = pick===result ? 'tc-correct' : 'tc-wrong';
+    else if (isPick)      cls = 'tc-pick';
+    else if (isResult)    cls = 'tc-result';
+    else                  cls = 'tc-other';
+    return `<span class="tc ${cls}">${esc(team)}</span>`;
+  }
+  return `<div class="game-line">${chip(t1)}<span class="vs">vs</span>${chip(t2)}</div>`;
 }
 
 function renderBracket() {
@@ -807,20 +905,13 @@ function renderBracket() {
   const id = document.getElementById('bkt-select').value;
   const el = document.getElementById('bkt-content');
   if (!id) { el.innerHTML = '<div class="empty-state">Select a participant above</div>'; return; }
-
   const p = appData.participants.find(x => x.id === id);
   if (!p) return;
+  if (!hasPicks(p)) { el.innerHTML = `<div class="empty-state">${esc(p.name)} hasn't submitted picks yet</div>`; return; }
 
-  if (!hasPicks(p)) {
-    el.innerHTML = `<div class="empty-state">${esc(p.name)} hasn't submitted picks yet</div>`; return;
-  }
+  const picks = p.picks, results = appData.results || {};
+  const sc = score(picks, results), acc = accuracy(picks, results);
 
-  const picks = p.picks;
-  const results = appData.results || {};
-  const sc = score(picks, results);
-  const acc = accuracy(picks, results);
-
-  // Stats
   const statsHtml = `<div class="bkt-stats">
     <div class="bstat"><div class="bstat-val" style="color:${p.color||'var(--orange)'}">${sc.total}</div><div class="bstat-lbl">Points</div></div>
     <div class="bstat"><div class="bstat-val">${acc.played>0?Math.round(acc.correct/acc.played*100)+'%':'—'}</div><div class="bstat-lbl">Accuracy</div></div>
@@ -828,88 +919,46 @@ function renderBracket() {
     <div class="bstat"><div class="bstat-val" style="color:var(--red)">${acc.played-acc.correct}</div><div class="bstat-lbl">Wrong</div></div>
   </div>`;
 
-  // Regions
   const regionMeta = {
-    east:    { label:'East',    emoji:'🔵' },
-    west:    { label:'West',    emoji:'🔴' },
-    midwest: { label:'Midwest', emoji:'🟡' },
-    south:   { label:'South',   emoji:'🟢' }
+    east:    { emoji:'🔵', label:'East'    },
+    west:    { emoji:'🔴', label:'West'    },
+    midwest: { emoji:'🟡', label:'Midwest' },
+    south:   { emoji:'🟢', label:'South'   }
   };
-  const roundOrder = ['r1','r2','s16','e8'];
 
-  const regHtml = '<div class="bkt-regions">' + Object.keys(RG).map(region => {
-    const rm = regionMeta[region];
-    const rounds = roundOrder.map(r => {
-      const games = RG[region][r].map(gid => gameLineHtml(gid, picks, results)).join('');
-      return `<div class="round-block"><div class="round-lbl">${RLABELS[r]}</div>${games}</div>`;
-    }).join('');
-    return `<div class="region-card"><div class="region-head">${rm.emoji} ${rm.label}</div>${rounds}</div>`;
-  }).join('') + '</div>';
+  const regHtml = Object.keys(RG).map(r => renderRegion(r, regionMeta[r], picks, results)).join('');
 
-  // Final Four
-  const ffGames = ['FF5','FF6'].map(g => gameLineHtml(g, picks, results)).join('');
-  const ncGame  = gameLineHtml('NC', picks, results);
-  const ffHtml  = `<div class="ff-card">
-    <div class="region-head">🏟️ Final Four</div>
-    <div class="round-block">${ffGames}</div>
-    <div class="round-block"><div class="round-lbl">National Championship</div>${ncGame}</div>
+  const ff5t = getTeams('FF5', picks, results);
+  const ff6t = getTeams('FF6', picks, results);
+  const ffHtml = `<div class="bkt-ff-wrap">
+    <div class="bkt-ff-card">
+      <div class="region-head">🏟️ ${GAMES.FF5.label}</div>
+      <div class="bkt-ff-inner">
+        ${renderBktSlot(ff5t[0], null, picks['FF5'], results['FF5'])}
+        ${renderBktSlot(ff5t[1], null, picks['FF5'], results['FF5'])}
+      </div>
+    </div>
+    <div class="bkt-ff-card">
+      <div class="region-head">🏟️ ${GAMES.FF6.label}</div>
+      <div class="bkt-ff-inner">
+        ${renderBktSlot(ff6t[0], null, picks['FF6'], results['FF6'])}
+        ${renderBktSlot(ff6t[1], null, picks['FF6'], results['FF6'])}
+      </div>
+    </div>
   </div>`;
 
-  // Champion
-  const champ = picks['NC'];
-  const actual = results['NC'];
-  const champColor = actual ? (champ===actual ? 'var(--green)' : 'var(--red)') : (p.color || 'var(--gold)');
-  const champLbl   = actual ? '🏆 Actual Champion' : '🎯 Predicted Champion';
-  const champHtml  = `<div class="champ-display">
-    <div class="champ-lbl">${champLbl}</div>
-    <div class="champ-team" style="color:${champColor}">${esc(champ) || 'Not picked'}</div>
-    ${actual && champ!==actual ? `<div style="margin-top:8px;font-family:var(--fm);font-size:11px;color:var(--muted)">Actual: ${esc(actual)}</div>` : ''}
+  const champ = picks['NC'], actual = results['NC'];
+  const champColor = actual ? (champ===actual?'var(--green)':'var(--red)') : (p.color||'var(--orange)');
+  const champHtml = `<div class="champ-display">
+    <div class="champ-lbl">${actual?'🏆 Actual Champion':'🎯 Predicted Champion'}</div>
+    <div class="champ-team" style="color:${champColor}">${esc(champ)||'Not picked'}</div>
+    ${actual&&champ!==actual?`<div style="margin-top:8px;font-family:var(--fm);font-size:11px;color:var(--muted)">Actual: ${esc(actual)}</div>`:''}
   </div>`;
 
   el.innerHTML = statsHtml + regHtml + ffHtml + champHtml;
 }
 
-function gameLineHtml(gid, picks, results) {
-  const [t1, t2] = getTeams(gid, picks, results);
-  const pick   = picks?.[gid];
-  const result = results?.[gid];
-
-  function chip(team) {
-    if (!team || team==='TBD') return `<span class="tc tc-tbd">${esc(team)||'TBD'}</span>`;
-    const isPick   = pick   === team;
-    const isResult = result === team;
-    let cls;
-    if (isPick && result)          cls = pick===result ? 'tc-correct' : 'tc-wrong';
-    else if (isPick)               cls = 'tc-pick';
-    else if (isResult && !isPick)  cls = 'tc-result';
-    else                           cls = 'tc-other';
-    return `<span class="tc ${cls}">${esc(team)}</span>`;
-  }
-
-  return `<div class="game-line">${chip(t1)}<span class="vs">vs</span>${chip(t2)}</div>`;
-}
-
-// ============================================================
-// WIZARD
-// ============================================================
-function renderWizardStep() {
-  const wizard = document.getElementById('wizard');
-  const step = WSTEPS[wiz.step];
-  const pct  = (wiz.step / (WSTEPS.length - 1)) * 100;
-
-  const prog = `<div class="w-prog"><div class="w-prog-bar" style="width:${pct}%"></div></div>`;
-
-  let body = '';
-
-  if (step.type === 'name') {
-    body = `
-      <div class="w-title">${step.title}</div>
-      <div class="w-sub">Enter your name to start your bracket</div>
-      <input class="name-inp" id="w-name" type="text" placeholder="Your name..."
-             value="${esc(wiz.name)}"
-             oninput="wiz.name=this.value; document.getElementById('w-next').disabled=!this.value.trim()"
-             onkeydown="if(event.key==='Enter'&&this.value.trim())wizNext()" />
-      <div class="name-hint">This is how you'll appear on the leaderboard.</div>`;
+class="name-hint">This is how you'll appear on the leaderboard.</div>`;
   } else if (step.type === 'games') {
     const r = appData?.results || {};
     const gamesHtml = step.games.map(gid => {
